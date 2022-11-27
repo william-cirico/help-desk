@@ -1,14 +1,14 @@
 import { RectButtonProps } from "react-native-gesture-handler";
-import { Container, Load, Title } from "./styles";
+import { ButtonStyleProps, Container, Load, Title } from "./styles";
 
-type Props = RectButtonProps & {
+type Props = RectButtonProps & ButtonStyleProps & {
     title: string;
     isLoading?: boolean;
 }
 
-export function Button({ title, isLoading = false, ...rest }: Props) {
+export function Button({ disabled, title, isLoading = false, onPress, ...rest }: Props) {
     return (
-        <Container enabled={!isLoading} {...rest}>
+        <Container disabled={disabled} enabled={!isLoading} onPress={onPress} {...rest}>
             {isLoading ? <Load /> : <Title>{title}</Title>}
         </Container>
     );

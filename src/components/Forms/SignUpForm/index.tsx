@@ -2,13 +2,22 @@ import { Button } from "../../Controllers/Button";
 import { Input } from "../../Controllers/Input";
 import { Form, Title } from "./styles";
 import { useState } from "react";
+import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 export function SignUpForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    function handleSignUp() {}
+    function handleSignUp() {
+        setIsLoading(true);
+        auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => Alert.alert("Sucesso", "Usuário criado com sucesso!"))
+            .catch(() => Alert.alert("Falha", "Não foi possível criar o usuário"))
+            .finally(() => setIsLoading(false))
+    }
 
     return (
         <Form>
