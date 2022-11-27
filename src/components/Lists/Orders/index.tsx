@@ -17,11 +17,12 @@ export function Orders() {
 
         const subscriber = firestore()
             .collection("Orders")
+            .where("status", "==", status)
             .onSnapshot(documentSnapshot => {
                 const orders = documentSnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data(),
-                    created_at: doc.data().created_at.seconds
+                    created_at: doc.data()?.created_at?.seconds
                 })) as OrderProps[];
 
                 setOrders(orders);

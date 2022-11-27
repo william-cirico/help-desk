@@ -24,7 +24,7 @@ export function NewOrder() {
                     backgroundComponent={() => <Background />}
                 >
                     <BottomSheetView>
-                        <OrderForm />
+                        <OrderForm closeSnap={() => bottomSheetRef.current.dismiss()} />
                     </BottomSheetView>
                 </BottomSheetModal>
             </BottomSheetModalProvider>

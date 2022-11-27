@@ -6,7 +6,11 @@ import { TextArea } from "../../Controllers/TextArea";
 import firestore from "@react-native-firebase/firestore";
 import { Alert } from "react-native";
 
-export function OrderForm() {
+type Props = {
+    closeSnap: VoidFunction;
+}
+
+export function OrderForm({ closeSnap }: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const [description, setDescription] = useState("");
     const [patrimony, setPatrimony] = useState("");
@@ -21,7 +25,10 @@ export function OrderForm() {
                 status: "open",
                 created_at: firestore.FieldValue.serverTimestamp()
             })
-            .then(() => Alert.alert("Sucesso", "Novo pedido adicionado"))
+            .then(() => {
+                Alert.alert("Sucesso", "Novo pedido adicionado");
+                closeSnap();
+            })
             .catch(() => Alert.alert("Falha", "Não foi possível adicionar o no pedido"))
             .finally(() => setIsLoading(false));
     }
